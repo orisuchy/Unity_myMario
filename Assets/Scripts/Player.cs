@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
-
+    
     public float bounceVelocity;
     public Vector2 velocity;     
     public LayerMask wallMask;
@@ -13,6 +14,10 @@ public class Player : MonoBehaviour
     public bool walk,walk_left,walk_right,jump;
     public LayerMask floorMask;
     private bool bounce = false;
+    private int score;
+    public Text scoreText;
+    public int life;
+    public Text lifeText;
     public enum PlayerState{
         jumping,
         idle,
@@ -26,6 +31,10 @@ public class Player : MonoBehaviour
     void Start()
     {
         //Fall();
+        score=0;
+        life=2;
+        SetCountText();
+        SetLifeText();
     }
 
     // Update is called once per frame
@@ -34,6 +43,20 @@ public class Player : MonoBehaviour
         CheckPlayerInput();
         UpdatePlayerPosition();
         UpdateAnimationStates();
+    }
+    void SetCountText(){
+        scoreText.text="Score: "+score.ToString();
+        
+    }
+    void SetLifeText(){
+        lifeText.text="life: "+life.ToString();
+        
+    }
+    public int getLife(){
+        return life;
+    }
+    public int getScore(){
+        return score;
     }
     
     void UpdateAnimationStates(){
@@ -166,7 +189,7 @@ public class Player : MonoBehaviour
                 hitRay = ceilRight;
             }
             if(hitRay.collider.tag == "QuestionBlock"){
-               hitRay.collider.GetComponent<QuestionBlock>().QuestionBlockBounce(); 
+               hitRay.collider.GetComponent<QuestionBlock>().QuestionBlockBounce(this.gameObject);               
             }
             pos.y = hitRay.collider.bounds.center.y - hitRay.collider.bounds.size.y / 2 - 1;
             Fall();
@@ -174,6 +197,14 @@ public class Player : MonoBehaviour
         return pos;
     }
 
+    public void setScore(){
+        score +=1; 
+        SetCountText();
+    }
+    public void setLife(){
+        life -=1; 
+        SetLifeText();
+    }
     void Fall(){
         velocity.y = 0;
         playerState = PlayerState.jumping;

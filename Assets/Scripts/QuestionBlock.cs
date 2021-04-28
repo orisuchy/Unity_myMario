@@ -17,9 +17,10 @@ public class QuestionBlock : MonoBehaviour
     {
         originalPosition = transform.localPosition;
     }
-    public void QuestionBlockBounce(){
+    public void QuestionBlockBounce(GameObject player){
         if(canBounce){
             canBounce = false;
+            player.GetComponent<Player>().setScore();
             StartCoroutine(Bounce());
         }
     }
