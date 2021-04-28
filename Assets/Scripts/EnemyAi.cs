@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EnemyAi : MonoBehaviour
 {
@@ -92,7 +93,7 @@ public class EnemyAi : MonoBehaviour
                 hitRay = groundRight;
             }
             if(hitRay.collider.tag == "Player"){
-                Application.LoadLevel("GameOver");
+                SceneManager.LoadScene("GameOver");
             }
             pos.y = hitRay.collider.bounds.center.y + hitRay.collider.bounds.size.y / 2 + .5f;
             grounded = true;
@@ -123,7 +124,7 @@ public class EnemyAi : MonoBehaviour
                 hitRay = wallBottom;
             }
             if(hitRay.collider.tag == "Player"){
-                Application.LoadLevel("GameOver");
+                SceneManager.LoadScene("GameOver");
             }
             isWalkingLeft = !isWalkingLeft;
 

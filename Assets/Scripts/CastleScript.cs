@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CastleScript : MonoBehaviour
 {
@@ -10,11 +11,11 @@ public class CastleScript : MonoBehaviour
         if(other.tag == "Player"){
             if (level == 1)
             {
-                Application.LoadLevel("Level2");
+                SceneManager.LoadScene("Level2");
             }
            else if (level == 2)
             {
-                Application.LoadLevel("Win");
+                SceneManager.LoadScene("Win");
             }
         }
     }
